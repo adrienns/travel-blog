@@ -66,20 +66,10 @@ export function FlyTo({ lat, lng }: { lat: number; lng: number }) {
 }
 
 
-const res = await fetch(
-  "http://localhost:3000/api/jadesta?urls=" + [
-    "https://jadesta.kemenparekraf.go.id/desa/bohesilian_1",
-    "https://jadesta.kemenparekraf.go.id/desa/payungpayung",
-    "https://jadesta.kemenparekraf.go.id/desa/teluk_harapan",
-    "https://jadesta.kemenparekraf.go.id/desa/_teluk_alulu_maratua",
-  ].join(","),
-  { cache: "no-store" }
-);
-const stays = await res.json();
 
 export default function AccomodationMap({
 
-  hotels = stays,
+  hotels,
   center = { lat: 2.21, lng: 118.60 },
   zoom = 11,
   height = 480,
@@ -99,7 +89,7 @@ export default function AccomodationMap({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {hotels.map((h) => (
+        {hotels && hotels.map((h) => (
           <Marker key={h.name} position={[h.lat, h.lng]}>
 
             <Tooltip>
