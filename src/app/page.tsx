@@ -4,7 +4,9 @@ import TravelBlogLandingClient from "../components/TravelBlogLandingClient";
 
 export default async function TravelBlogLanding() {
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = `https://${process.env.VERCEL_URL}` || 'http://localhost:3000';
+
+
 
   const res = await fetch(
     `${baseUrl}/api/jadesta?urls=` + [
