@@ -1,10 +1,10 @@
 // app/components/VisitBeachesSection.tsx
 import Image from "next/image";
 
-const LUMANTANG_BEACH = "/images/lumantangbeach.png";
+const LUMANTANG_BEACH = "/images/lumantangbeach.webp";
 const DISSAPEARING_BEACH_HORIZONTAL =
-  "/images/disappearing_beach_horizontal.png";
-const PRATASABA_BEACH = "/images/pratasaba_beach_03.png";
+  "/images/disappearing_beach_horizontal.webp";
+const PRATASABA_BEACH = "/images/pratasaba_beach_03.webp";
 
 // VisitBeachesSection: A section with a collage of images and text encouraging users to visit the blog
 
@@ -73,7 +73,7 @@ export default function VisitBeachesSection() {
             <div>
               <Image
                 src={DISSAPEARING_BEACH_HORIZONTAL}
-                alt="Surfer"
+                alt="disappearing beach"
                 className="w-[290px] h-[450px] object-cover shadow rounded-[2px]"
                 width={290}
                 height={370}
