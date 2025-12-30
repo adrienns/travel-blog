@@ -1,5 +1,4 @@
 
-// app/components/CavesSection.tsx
 import Image from "next/image";
 const TABUNGCAVE = "/images/halo_tabung_cave.webp";
 const GUMANTUNG_CAVE = "/images/gumantung_cave.webp";
