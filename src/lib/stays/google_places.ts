@@ -43,10 +43,12 @@ async function fetchGooglePlacesFresh(): Promise<Stay[]> {
     `&type=lodging` +
     `&key=${API_KEY}`;
 
+  // 3 months in seconds
+  const THREE_MONTHS_IN_SECONDS = 7776000;
   const allResults: NearbyResult[] = [];
 
   for (let page = 0; page < 3 && url; page++) {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, { next: { revalidate: THREE_MONTHS_IN_SECONDS } });
     if (!res.ok) throw new Error(`Places nearby failed: ${res.status}`);
 
     const json = await res.json() as {

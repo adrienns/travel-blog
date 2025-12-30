@@ -9,8 +9,14 @@ function absolutize(href: string, base: string) {
   try { return new URL(href, base).toString(); } catch { return href; }
 }
 
+// 3 months in seconds: 3 * 30 * 24 * 60 * 60 = 7,776,000
+const THREE_MONTHS_IN_SECONDS = 7776000;
+
 async function fetchHTML(url: string) {
-  const res = await fetch(url, { headers: { "User-Agent": UA } });
+  const res = await fetch(url, {
+    headers: { "User-Agent": UA },
+    next: { revalidate: THREE_MONTHS_IN_SECONDS } // Cache for 3 months
+  });
   if (!res.ok) throw new Error(`Fetch failed ${res.status} for ${url}`);
   return await res.text();
 }
@@ -38,7 +44,11 @@ async function resolveRedirect(url: string, base?: string, hops = 3): Promise<st
   try {
     let current = new URL(url, base).toString();
     for (let i = 0; i < hops; i++) {
-      const res = await fetch(current, { method: "HEAD", redirect: "manual" });
+      const res = await fetch(current, {
+        method: "HEAD",
+        redirect: "manual",
+        next: { revalidate: THREE_MONTHS_IN_SECONDS } // Cache for 3 months
+      });
       const loc = res.headers.get("location");
       if (!loc) return current;
       current = new URL(loc, current).toString();
@@ -152,7 +162,7 @@ async function geocodeAddress(address: string, apiKey: string) {
     `&language=id` +
     `&key=${apiKey}`;
 
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, { next: { revalidate: THREE_MONTHS_IN_SECONDS } });
   if (!res.ok) return null;
 
   const data = await res.json();
