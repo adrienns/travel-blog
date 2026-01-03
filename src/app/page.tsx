@@ -52,7 +52,7 @@ export default async function TravelBlogLanding() {
 
       {/* Intro Section - Glass Card */}
       <section className="relative z-10 -mt-32 px-4 md:px-8 mb-24">
-        <div className="max-w-5xl mx-auto bg-card/60 backdrop-blur-xl border border-white/20 p-8 md:p-12 rounded-3xl shadow-2xl">
+        <div className="max-w-5xl mx-auto bg-card/30 backdrop-blur-xl border border-white/20 p-8 md:p-12 rounded-1xl shadow-2xl">
           <p className="text-lg md:text-xl leading-relaxed text-muted-foreground text-center font-serif italic">
             &ldquo;Think turquoise lagoons, untouched coral reefs, sea turtles everywhere, and a super laid-back vibe.&rdquo;
           </p>
@@ -86,10 +86,9 @@ export default async function TravelBlogLanding() {
             <h2 className="text-4xl font-serif font-bold text-primary">How to Get There</h2>
             <div className="space-y-4 text-lg text-muted-foreground">
               <p>
-                Most travelers fly into <span className="font-semibold text-foreground">Berau</span>, then take a speedboat from Tanjung Batu port. It&apos;s an adventure before you even arrive.
-              </p>
-              <p>
-                Alternatively, fly into <span className="font-semibold text-foreground">Samarinda or Tarakan</span> for a potentially quicker route via Susi Air.
+                Most travelers travel by speedboat from Berau, then take a speedboat from Tanjung Batu port. Public speedboats run every day.
+                <p>Alternatively you can fly into Samarinda or Tarakan for a potentially quicker route via Susi Air. We choose this way as the flights cost almost as much
+                  as the speedboat tickets and it is a lot more comfortable. The plane is tiny so there are only a few tickets available. Make sure to book in advance. You will need to book the ticket through a WhatsApp number</p>
               </p>
             </div>
           </div>
@@ -105,27 +104,17 @@ export default async function TravelBlogLanding() {
           <div className="space-y-6 sticky top-24">
             <h2 className="text-4xl font-serif font-bold text-primary">Where to Stay</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              From luxury resorts on the water to authentic village homestays. We loved <strong>Grage Guesthouse</strong> for its perfect mix of comfort and local charm.
+              The island offers a range of options from luxury resorts to beach bungalows to village homestays.
+              The luxury resorts offer private docks, on-site dive centers and a range of activities.
+              If you are looking for a more budget-friendly option and intrested in a more local experience, there are also a range of beach bungalows and village homestays available.
+              We stayed in <strong>Grage Guesthouse</strong> in waterfront bungalows. It was affordable and had a perfect mix of comfort and local charm. We enjoyed snorkeling there and the sunset was stunning.
+              We were able to rent a motorbike and they offer drop off and pick up service.
             </p>
-            <div className="bg-card/50 backdrop-blur-sm border border-border p-6 rounded-2xl shadow-sm">
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-accent" />
-                  <span>Luxury Resorts (Water Villas)</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-secondary" />
-                  <span>Beach Bungalows</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-primary" />
-                  <span>Village Homestays</span>
-                </li>
-              </ul>
-            </div>
+            <br></br>
+            <p className="text-lg text-muted-foreground leading-relaxed">Feel free to click on the markers  on the map to get more information about the accommodation. This map shows the location of the available accommodation that are found on google maps as well as on indonesian websites.</p>
           </div>
 
-          <div className="h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+          <div className="h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
             {/* Map Stay to HotelPin explicitly to match types */}
             <MapWrapper hotels={stays
               .filter(s => s.lat != null && s.lng != null)
