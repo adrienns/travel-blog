@@ -47,35 +47,43 @@ async function fetchGooglePlacesFresh(): Promise<Stay[]> {
   const THREE_MONTHS_IN_SECONDS = 7776000;
   const allResults: NearbyResult[] = [];
 
-  for (let page = 0; page < 3 && url; page++) {
-    const res = await fetch(url, { next: { revalidate: THREE_MONTHS_IN_SECONDS } });
-    if (!res.ok) throw new Error(`Places nearby failed: ${res.status}`);
+  try {
+    for (let page = 0; page < 3 && url; page++) {
+      const res = await fetch(url, { next: { revalidate: THREE_MONTHS_IN_SECONDS } });
+      if (!res.ok) {
+        console.warn(`Places nearby failed: ${res.status} ${res.statusText}`);
+        break;
+      }
 
-    const json = await res.json() as {
-      results?: NearbyResult[];
-      next_page_token?: string;
-      status?: string;
-      error_message?: string;
-    };
+      const json = await res.json() as {
+        results?: NearbyResult[];
+        next_page_token?: string;
+        status?: string;
+        error_message?: string;
+      };
 
-    // Google may return HTTP 200 with a non-OK "status"
-    if (json.status && json.status !== "OK" && json.status !== "ZERO_RESULTS") {
-      throw new Error(
-        `Places nearby status ${json.status}${json.error_message ? `: ${json.error_message}` : ""}`
-      );
+      // Google may return HTTP 200 with a non-OK "status"
+      if (json.status && json.status !== "OK" && json.status !== "ZERO_RESULTS") {
+        console.warn(`Places nearby API error: ${json.status} - ${json.error_message || 'No message'}`);
+        break;
+      }
+
+      if (Array.isArray(json.results)) {
+        allResults.push(...json.results);
+      }
+
+      if (json.next_page_token) {
+        // token activates after a short delay, otherwise you get INVALID_REQUEST
+        await new Promise((r) => setTimeout(r, 2000));
+        url = `${BASE}?pagetoken=${json.next_page_token}&key=${API_KEY}`;
+      } else {
+        url = "";
+      }
     }
-
-    if (Array.isArray(json.results)) {
-      allResults.push(...json.results);
-    }
-
-    if (json.next_page_token) {
-      // token activates after a short delay, otherwise you get INVALID_REQUEST
-      await new Promise((r) => setTimeout(r, 2000));
-      url = `${BASE}?pagetoken=${json.next_page_token}&key=${API_KEY}`;
-    } else {
-      url = "";
-    }
+  } catch (error) {
+    console.warn("Error fetching Google Places:", error);
+    // Return empty results instead of crashing
+    return [];
   }
 
   const basics: Stay[] = allResults.map((r) => ({
