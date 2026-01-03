@@ -66,7 +66,7 @@ export default async function TravelBlogLanding() {
       <section className="container mx-auto px-4 mb-32">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-96 md:h-80">
           {[DISSAPEARING_BEACH_HORIZONTAL, MARATUA_JETTY, GRAGE_GUESTHOUSE, CAVE].map((src, i) => (
-            <div key={i} className="relative w-full h-full rounded-2xl overflow-hidden group shadow-lg">
+            <div key={i} className="relative w-full h-full rounded-[5px] overflow-hidden group shadow-lg">
               <Image
                 src={src}
                 alt="Gallery"
@@ -80,8 +80,8 @@ export default async function TravelBlogLanding() {
       </section>
 
       {/* How to Get There */}
-      <section className="container mx-auto px-4 mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-secondary/20 rounded-3xl p-8 md:p-16">
+      <section className="w-full bg-[#f7f7f7]">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 py-20 md:grid-cols-2">
           <div className="space-y-6">
             <h2 className="text-4xl font-serif font-bold text-primary">How to Get There</h2>
             <div className="space-y-4 text-lg text-muted-foreground">
@@ -92,29 +92,16 @@ export default async function TravelBlogLanding() {
               </p>
             </div>
           </div>
-          <div className="relative h-80 w-full rounded-2xl overflow-hidden shadow-xl rotate-2 hover:rotate-0 transition-transform duration-500">
+          <div className="relative h-80 w-full rounded-1xl overflow-hidden shadow-xl rotate-2 hover:rotate-0 transition-transform duration-500">
             <Image src={PLANE_MARATUA} alt="Plane" fill className="object-cover" />
           </div>
         </div>
       </section>
 
       {/* Where to Stay */}
-      <section className="container mx-auto px-4 mb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="space-y-6 sticky top-24">
-            <h2 className="text-4xl font-serif font-bold text-primary">Where to Stay</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              The island offers a range of options from luxury resorts to beach bungalows to village homestays.
-              The luxury resorts offer private docks, on-site dive centers and a range of activities.
-              If you are looking for a more budget-friendly option and intrested in a more local experience, there are also a range of beach bungalows and village homestays available.
-              We stayed in <strong>Grage Guesthouse</strong> in waterfront bungalows. It was affordable and had a perfect mix of comfort and local charm. We enjoyed snorkeling there and the sunset was stunning.
-              We were able to rent a motorbike and they offer drop off and pick up service.
-            </p>
-            <br></br>
-            <p className="text-lg text-muted-foreground leading-relaxed">Feel free to click on the markers  on the map to get more information about the accommodation. This map shows the location of the available accommodation that are found on google maps as well as on indonesian websites.</p>
-          </div>
-
-          <div className="h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
+      <section className="w-full bg-[#f2efe9]">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-2 gap-12 px-6 py-20">
+          <div className="w-full h-[400px] lg:h-full">
             {/* Map Stay to HotelPin explicitly to match types */}
             <MapWrapper hotels={stays
               .filter(s => s.lat != null && s.lng != null)
@@ -126,6 +113,16 @@ export default async function TravelBlogLanding() {
                 url: stay.link || stay.sourceUrl,
                 price: stay.price || undefined,
               }))} />
+          </div>
+
+          <div className="space-y-6">
+            <h2 className="text-4xl font-serif font-bold text-primary">Where to Stay</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              The island offers a range of options from luxury resorts to beach bungalows to village homestays.
+              If you are looking for a more budget-friendly option and intrested in a more local experience, there are also a range of beach bungalows and village homestays available.
+              We stayed in <strong>Grage Guesthouse</strong> in waterfront bungalows. It was affordable and had a perfect mix of comfort and local charm. We enjoyed snorkeling there and the sunset was stunning.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">Feel free to click on the markers  on the map to get more information about the accommodation. This map shows the location of the available accommodation that are found on google maps as well as on indonesian websites.</p>
           </div>
         </div>
       </section>

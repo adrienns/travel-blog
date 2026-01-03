@@ -10,16 +10,17 @@ import "leaflet/dist/leaflet.css";
 const createCustomIcon = (color: string) => {
   const svg = `
   <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M24 4C15.1634 4 8 11.1634 8 20C8 30.2 22.2 43.2 22.8 43.7C23.5 44.3 24.5 44.3 25.2 43.7C25.8 43.2 40 30.2 40 20C40 11.1634 32.8366 4 24 4Z" fill="${color}" stroke="white" stroke-width="2"/>
-    <circle cx="24" cy="20" r="6" fill="white"/>
+    <circle cx="24" cy="24" r="20" fill="white" fill-opacity="0.9" stroke="black" stroke-opacity="0.1"/>
+    <path d="M12 22L24 10L36 22H32V36H16V22H12Z" fill="${color}" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="20" y="26" width="8" height="10" fill="white" fill-opacity="0.5"/>
   </svg>`;
 
   return new L.DivIcon({
     className: "bg-transparent",
     html: svg,
     iconSize: [48, 48],
-    iconAnchor: [24, 48], // Bottom tip
-    popupAnchor: [0, -48],
+    iconAnchor: [24, 24], // Center of the circle
+    popupAnchor: [0, -24],
   });
 };
 
@@ -52,15 +53,15 @@ export default function AccomodationMap({
   height = 480,
 }: AccomodationMapProps) {
   return (
-    <div className="w-full h-full overflow-hidden rounded-3xl shadow-lg border border-white/20 relative group">
-      <div className="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-inset ring-black/10 z-[400]" />
+    <div className="w-full h-full overflow-hidden rounded-3xl shadow-xl relative group">
+
 
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={zoom}
-        scrollWheelZoom={false} // Better for page scrolling
         style={{ height: "100%", width: "100%" }}
         className="z-0 bg-[#f0f3f5]" // Fallback color matching Voyager tiles
+        attributionControl={false}
       >
         {/* CartoDB Voyager Tiles - Cleaner, softer, modern look */}
         <TileLayer
